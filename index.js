@@ -6,8 +6,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const TelegramBot = require('node-telegram-bot-api');
-const token = '6106991708:AAG2YP9S_tPIYfxsh5r7kuUHycrUkrqGcjc';
-const chatId = '-908968924';
+const token = '5487410170:AAF60BxMlwAyuSyBzI88bj3ITFU2C6P71r4';
+const chatId = '-937223528';
 const bot = new TelegramBot(token, { polling: false });
 
 
